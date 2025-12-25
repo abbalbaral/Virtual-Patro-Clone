@@ -3,13 +3,28 @@
   "data": {
     "date": "2025-12-25",
     "payload": [
-      { "currency": "USD", "name": "US Dollar", "buy": 134.23, "sell": 134.83, "unit": 1 },
-      { "currency": "EUR", "name": "Euro", "buy": 146.91, "sell": 147.57, "unit": 1 },
-      { "currency": "GBP", "name": "Pound Sterling", "buy": 175.12, "sell": 175.92, "unit": 1 },
       { "currency": "INR", "name": "Indian Rupee", "buy": 160.00, "sell": 160.15, "unit": 100 },
-      { "currency": "AUD", "name": "Australian Dollar", "buy": 89.45, "sell": 89.89, "unit": 1 },
-      { "currency": "AED", "name": "UAE Dirham", "buy": 36.54, "sell": 36.71, "unit": 1 },
-      { "currency": "JPY", "name": "Japanese Yen", "buy": 9.12, "sell": 9.18, "unit": 10 }
+      { "currency": "USD", "name": "U.S. Dollar", "buy": 143.36, "sell": 143.96, "unit": 1 },
+      { "currency": "EUR", "name": "European Euro", "buy": 169.09, "sell": 169.79, "unit": 1 },
+      { "currency": "GBP", "name": "UK Pound Sterling", "buy": 193.74, "sell": 194.55, "unit": 1 },
+      { "currency": "CHF", "name": "Swiss Franc", "buy": 182.22, "sell": 182.98, "unit": 1 },
+      { "currency": "AUD", "name": "Australian Dollar", "buy": 96.25, "sell": 96.65, "unit": 1 },
+      { "currency": "CAD", "name": "Canadian Dollar", "buy": 104.85, "sell": 105.28, "unit": 1 },
+      { "currency": "SGD", "name": "Singapore Dollar", "buy": 111.69, "sell": 112.16, "unit": 1 },
+      { "currency": "JPY", "name": "Japanese Yen", "buy": 9.20, "sell": 9.23, "unit": 10 },
+      { "currency": "CNY", "name": "Chinese Yuan", "buy": 20.44, "sell": 20.52, "unit": 1 },
+      { "currency": "SAR", "name": "Saudi Arabian Riyal", "buy": 38.22, "sell": 38.38, "unit": 1 },
+      { "currency": "QAR", "name": "Qatari Riyal", "buy": 39.33, "sell": 39.49, "unit": 1 },
+      { "currency": "THB", "name": "Thai Baht", "buy": 4.62, "sell": 4.64, "unit": 1 },
+      { "currency": "AED", "name": "UAE Dirham", "buy": 39.04, "sell": 39.20, "unit": 1 },
+      { "currency": "MYR", "name": "Malaysian Ringgit", "buy": 35.44, "sell": 35.59, "unit": 1 },
+      { "currency": "KRW", "name": "South Korean Won", "buy": 9.89, "sell": 9.93, "unit": 100 },
+      { "currency": "SEK", "name": "Swedish Kroner", "buy": 15.65, "sell": 15.71, "unit": 1 },
+      { "currency": "DKK", "name": "Danish Kroner", "buy": 22.64, "sell": 22.73, "unit": 1 },
+      { "currency": "HKD", "name": "Hong Kong Dollar", "buy": 18.44, "sell": 18.51, "unit": 1 },
+      { "currency": "KWD", "name": "Kuwaity Dinar", "buy": 466.64, "sell": 468.59, "unit": 1 },
+      { "currency": "BHD", "name": "Bahrain Dinar", "buy": 380.06, "sell": 381.65, "unit": 1 },
+      { "currency": "OMR", "name": "Omani Rial", "buy": 372.36, "sell": 373.92, "unit": 1 }
     ]
   }
 }
