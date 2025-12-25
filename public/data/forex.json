@@ -1,0 +1,15 @@
+{
+  "status": "success",
+  "data": {
+    "date": "2025-12-25",
+    "payload": [
+      { "currency": "USD", "name": "US Dollar", "buy": 134.23, "sell": 134.83, "unit": 1 },
+      { "currency": "EUR", "name": "Euro", "buy": 146.91, "sell": 147.57, "unit": 1 },
+      { "currency": "GBP", "name": "Pound Sterling", "buy": 175.12, "sell": 175.92, "unit": 1 },
+      { "currency": "INR", "name": "Indian Rupee", "buy": 160.00, "sell": 160.15, "unit": 100 },
+      { "currency": "AUD", "name": "Australian Dollar", "buy": 89.45, "sell": 89.89, "unit": 1 },
+      { "currency": "AED", "name": "UAE Dirham", "buy": 36.54, "sell": 36.71, "unit": 1 },
+      { "currency": "JPY", "name": "Japanese Yen", "buy": 9.12, "sell": 9.18, "unit": 10 }
+    ]
+  }
+}

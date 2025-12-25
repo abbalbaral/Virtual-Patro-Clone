@@ -1,19 +1,31 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import MainLayout from "./layouts/MainLayout";
+import Home from "./pages/Home";
+import Rashifal from "./pages/Rashifal";
+import Forex from "./pages/Forex";
+import DateConverter from "./pages/DateConverter";
+
+
 function App() {
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-xl shadow-lg text-center">
-        <h1 className="text-3xl font-bold text-blue-600 mb-4">
-          Virtual Patro Clone
-        </h1>
-        <p className="text-gray-600">
-          Environment setup is successful!
-        </p>
-        <button className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition">
-          Test Button
-        </button>
-      </div>
-    </div>
-  )
-}
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<Home />} />
+          <Route path="rashifal" element={<Rashifal />} />
+          <Route path="forex" element={<Forex />} />
+          <Route path="date-converter" element={<DateConverter />} />
 
-export default App
+          {/* Catch-all for pages we haven't built yet */}
+          <Route
+            path="*"
+            element={
+              <div className="p-10 text-center">404 - Page Not Found</div>
+            }
+          />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+}
+export default App;
