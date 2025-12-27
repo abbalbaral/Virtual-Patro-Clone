@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { getRashifal } from "../services/api";
 import { useSelector } from "react-redux"; // To get current Nepali date
 import {
   convertToNepaliDigit,
@@ -26,18 +26,13 @@ const Rashifal = () => {
   const currentYear = convertToNepaliDigit(year);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const loadData = async () => {
       setLoading(true);
-      try {
-        const response = await axios.get("/data/rashifal.json");
-        setData(response.data);
-      } catch (e) {
-        console.error("Error fetching rashifal", e);
-      } finally {
-        setTimeout(() => setLoading(false), 300);
-      }
+      const data = await getRashifal(); // CALL SERVICE
+      if(data) setData(data); 
+      setTimeout(() => setLoading(false), 300);
     };
-    fetchData();
+    loadData();
   }, []);
 
   const getContent = (zodiac) => {

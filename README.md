@@ -1,23 +1,16 @@
-# Virtual Patro Clone (Frontend)
+# React + Vite
 
-A pixel-perfect, responsive clone of [Virtual Patro](https://virtualpatro.com/) built with **React** and **Vite**.
-## Tech Used
-*   **Framework:** React + Vite
-*   **State Management:** Redux Toolkit (Manages Global Date State)
-*   **Styling:** Tailwind CSS (Responsive Grid & Flexbox layouts)
-*   **API Handling:** Axios (Simulated JSON fetching for Forex & Horoscopes)
-*   **Routing:** React Router DOM (v6)
-*   **Logic:** Custom Nepali Date conversion & Calendar generation logic.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## ✨ Key Features
-1.  **Dynamic Nepali Calendar:** Generates the 35-day grid dynamically based on the selected month/year.
-2.  **Date Converter:** Accurate BS ↔ AD conversion with strict validation (fixes bugs found in original site).
-3.  **Forex Module:** Fetches exchange rates with visual flags and formatted tables.
-4.  **Horoscope Carousel:** Auto-scrolling, touch-friendly carousel driven by JSON data.
-5.  **Responsive Design:** Desktop (Split view) vs Mobile (Stacked view) layouts.
+Currently, two official plugins are available:
 
-## 🛠️ How to Run
-1.  Clone the repo.
-2.  Switch to the feature branch: `git checkout abbal`
-3.  Install dependencies: `npm install`
-4.  Run the server: `npm run dev`
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+## React Compiler
+
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.

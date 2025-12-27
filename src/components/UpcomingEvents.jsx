@@ -1,31 +1,24 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { convertToNepaliDigit } from '../utils/calendarGenerator'; // Reuse our helper
-
+import { getCalendarEvents } from '../services/api';  
 const UpcomingEvents = () => {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const response = await axios.get('/data/calendar_data.json');
-        
-        // Transform the data for display
-        const rawEvents = response.data.events || [];
-        
-        const formattedEvents = rawEvents.map(evt => ({
-          // Convert '10' -> '१०'
-          day: convertToNepaliDigit(evt.day),
-          title: evt.title,
-          isHoliday: evt.is_holiday
-        }));
-
-        setEvents(formattedEvents);
-      } catch (error) {
-        console.error("Error fetching upcoming events", error);
-      }
+    const loadData = async () => {
+      // CALL SERVICE
+      const data = await getCalendarEvents();
+      const rawEvents = data.events || [];
+      
+      // Transform logic remains here (view logic)
+      const formattedEvents = rawEvents.map(evt => ({
+        day: convertToNepaliDigit(evt.day),
+        title: evt.title,
+        isHoliday: evt.is_holiday
+      }));
+      setEvents(formattedEvents);
     };
-    fetchEvents();
+    loadData();
   }, []);
 
   return (

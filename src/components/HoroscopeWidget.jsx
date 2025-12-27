@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
-import axios from 'axios'; // We use Axios
+import { getRashifal } from '../services/api'; 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const HoroscopeWidget = () => {
@@ -11,18 +11,13 @@ const HoroscopeWidget = () => {
 
   // 2. FETCH DATA: Runs once when component loads
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch from local JSON (Simulates API)
-        const response = await axios.get('/data/rashifal.json');
-        setHoroscopeData(response.data);
-      } catch (error) {
-        console.error("Error loading horoscope:", error);
-      } finally {
-        setLoading(false);
-      }
+    const loadData = async () => {
+      setLoading(true);
+      const data = await getRashifal(); // CALL SERVICE
+      if(data) setHoroscopeData(data); 
+      setTimeout(() => setLoading(false), 300);
     };
-    fetchData();
+    loadData();
   }, []);
 
   // 3. AUTO SCROLL LOGIC

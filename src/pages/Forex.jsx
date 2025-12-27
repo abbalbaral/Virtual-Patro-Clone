@@ -1,30 +1,24 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { RefreshCw, Calendar } from 'lucide-react';
 import { convertToNepaliDigit } from '../utils/calendarGenerator';
+import { getForexRates } from '../services/api'; // <--- IMPORT SERVICE
 
 const Forex = () => {
   const [rates, setRates] = useState([]);
   const [loading, setLoading] = useState(true);
   const [date, setDate] = useState('');
 
-  const fetchForexData = async () => {
+  const loadData = async () => {
     setLoading(true);
-    try {
-      const response = await axios.get('/data/forex.json');
-      if (response.data && response.data.data) {
-        setRates(response.data.data.payload);
-        setDate(response.data.data.date);
-      }
-    } catch (err) {
-      console.error("Error fetching forex:", err);
-    } finally {
-      setTimeout(() => setLoading(false), 300);
-    }
+    // CALL SERVICE
+    const data = await getForexRates();
+    setRates(data.rates);
+    setDate(data.date);
+    setTimeout(() => setLoading(false), 300);
   };
 
   useEffect(() => {
-    fetchForexData();
+    loadData();
   }, []);
 
   const getFlagUrl = (currency) => {

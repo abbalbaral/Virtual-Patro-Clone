@@ -4,7 +4,10 @@ import Home from "./pages/Home";
 import Rashifal from "./pages/Rashifal";
 import Forex from "./pages/Forex";
 import DateConverter from "./pages/DateConverter";
-
+import Sapana from "./pages/Sapana";
+import Karmakanda from "./pages/Karmakanda";
+import About from "./pages/About";  
+import Panchanga from "./pages/Panchanga";
 
 function App() {
   return (
@@ -15,7 +18,10 @@ function App() {
           <Route path="rashifal" element={<Rashifal />} />
           <Route path="forex" element={<Forex />} />
           <Route path="date-converter" element={<DateConverter />} />
-
+<Route path="sapana" element={<Sapana />} />
+<Route path="karmakanda" element={<Karmakanda />} />
+<Route path="about" element={<About />} />
+<Route path="panchanga" element={<Panchanga />} />
           {/* Catch-all for pages we haven't built yet */}
           <Route
             path="*"
