@@ -1,16 +1,31 @@
-# React + Vite
+# Virtual Patro Clone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A pixel-perfect, feature-rich clone of [Virtual Patro](https://virtualpatro.com/), built to demonstrate scalable Frontend Architecture using **React**, **Redux**, and **Service Layer Patterns**.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## React Compiler
+*   **Architecture:** Implemented a **Service Layer (Adapter Pattern)** to decouple UI components from API logic.
+*   **State Management:** Used **Redux Toolkit** to manage the Global Nepali Date state across the Calendar, Header, and Horoscope modules.
+*   **Algorithms:** Wrote custom logic for the **Nepali Calendar Generation** (35-day grid logic) and **Strict Date Validation** (BS ↔ AD conversion).
+*   **Performance:** Optimized rendering for the PDF Viewer using pagination (vs. scrolling) to prevent memory leaks.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
+*   **Core:** React.js (Vite)
+*   **Styling:** Tailwind CSS (Responsive, Mobile-First)
+*   **State:** Redux Toolkit
+*   **HTTP:** Axios (Centralized via `src/services/api.js`)
+*   **Routing:** React Router DOM v6
+*   **Assets:** React-PDF, Lucide React
 
-## Expanding the ESLint configuration
+## Project Structure
+The folder structure follows industry standards for scalability:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```text
+src/
+├── components/     # Reusable UI (Header, Footer, Widgets)
+├── features/       # Feature-specific logic
+├── layouts/        # Layout wrappers (Navbar/Footer persistence)
+├── pages/          # Full Page Views (Home, Forex, Rashifal, Panchanga)
+├── services/       # API abstraction layer (Axios configuration)
+├── store/          # Redux Toolkit Slices (Global Date State)
+└── utils/          # Pure functions (Date Math, Time Calculation, Formatters)
