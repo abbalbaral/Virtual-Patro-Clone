@@ -1,7 +1,6 @@
 // src/services/api.js
 import axios from 'axios';
 
-// Create a configured instance (Optional, but professional)
 const apiClient = axios.create({
   baseURL: '/data', // This means all calls will start with /data
   headers: {

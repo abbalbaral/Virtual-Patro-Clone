@@ -1,4 +1,3 @@
-// src/components/CalendarWidget.jsx
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeDate, setToday } from '../store/dateSlice';
@@ -9,8 +8,9 @@ import {
   convertToNepaliDigit 
 } from '../utils/calendarGenerator';
 import { ChevronUp, ChevronDown, ChevronsLeft, ChevronsRight } from 'lucide-react';
+import { getCalendarEvents } from '../services/api'; 
+
 import DayPopup from './DayPopup';
-import { getCalendarEvents } from '../services/api';
 
 const THEME_COLOR = "text-[#842362]";
 const BORDER_COLOR = "border-gray-300";
@@ -24,43 +24,58 @@ const CalendarWidget = () => {
   const [viewMonth, setViewMonth] = useState(currentMonth - 1); 
   
   const [calendarData, setCalendarData] = useState(null);
+  
+ //"Master Database" of muhurts ---
+  const [allMuhurts, setAllMuhurts] = useState({}); 
   const [muhurtList, setMuhurtList] = useState([]);
   const [apiEvents, setApiEvents] = useState([]);
 
-  // --- CHANGED STATE: Store the whole cell object ---
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [activeCell, setActiveCell] = useState(null); // Holds { tithi, dayNp, eventName... }
+  const [activeCell, setActiveCell] = useState(null);
 
+  // 1. FETCH DATA (Runs once)
   useEffect(() => {
-    const loadData = async () => {
-      // CALL SERVICE
+    const fetchCalendarData = async () => {
+      // Call the function from api.js
       const data = await getCalendarEvents();
-      setApiEvents(data.events); 
-      if (data.muhurts && data.muhurts["8"]) {
-          setMuhurtList(data.muhurts["8"]);
+      
+      // The service already extracts .data, so we just use the returned object
+      if (data) {
+        setApiEvents(data.events || []); 
+        
+        if (data.muhurts) {
+            setAllMuhurts(data.muhurts);
+        }
       }
     };
-    loadData();
+    fetchCalendarData();
   }, []);
 
+ useEffect(() => {
+    const currentKey = String(viewMonth);
+    
+    if (allMuhurts[currentKey]) {
+    setMuhurtList(allMuhurts[currentKey]);
+    } else {
+        setMuhurtList([]); 
+    }
+  }, [viewMonth, allMuhurts]);
+
+  // 2. GENERATE GRID
   useEffect(() => {
     const data = getMonthCalendar(viewYear, viewMonth, apiEvents);
     setCalendarData(data);
   }, [viewYear, viewMonth, apiEvents]);
 
-  // ... (Keep handlePrevMonth, handleNextMonth, jumpToToday same as before) ...
+  // ... (Rest of your handlers handlePrevMonth, handleNextMonth, etc. remain EXACTLY SAME) ...
   const handlePrevMonth = () => { if (viewMonth === 0) { setViewMonth(11); setViewYear(viewYear - 1); } else { setViewMonth(viewMonth - 1); } };
   const handleNextMonth = () => { if (viewMonth === 11) { setViewMonth(0); setViewYear(viewYear + 1); } else { setViewMonth(viewMonth + 1); } };
   const jumpToToday = () => { dispatch(setToday()); setViewYear(currentYear); setViewMonth(currentMonth - 1); };
-
-
-  // --- UPDATED CLICK HANDLER ---
-  // Now accepts the whole 'cell' object
+  
   const onDateClick = (cell) => {
     dispatch(changeDate(cell.fullDate));
-
     if (cell.isCurrentMonth) {
-      setActiveCell(cell); // Pass the exact grid data to the popup
+      setActiveCell(cell); 
       setIsPopupOpen(true);
     }
   };
@@ -68,22 +83,61 @@ const CalendarWidget = () => {
   if (!calendarData) return <div className="p-10 text-center">लोड हुँदैछ...</div>;
 
   return (
-    <div className="w-full font-mukta p-2 relative">
+     // ... (Your JSX remains EXACTLY SAME, no changes needed in Return) ...
+     <div className="w-full font-mukta p-2 relative">
       
-      {/* ... (Keep Header Controls exactly same as before) ... */}
+      {/* HEADER CONTROLS */}
       <div className="flex flex-col md:flex-row justify-between items-center mb-4 gap-3 md:gap-0">
-          {/* ... (Header buttons code) ... */}
-           {/* Use your existing header code here */}
-           <div className="self-start md:self-auto"><button onClick={jumpToToday} className={`bg-white border border-gray-400 shadow-md shadow-gray-400/50 px-3 py-2 rounded-md hover:text-orange-500 ${THEME_COLOR} font-bold text-sm lg:text-lg`}>आज</button></div>
-           <div className="flex items-center gap-1 bg-gray-200 border border-gray-400 shadow-md shadow-gray-300/50 px-2 py-1 rounded-lg">
-             <button onClick={handlePrevMonth} className={`${THEME_COLOR} p-1 hover:border hover:border-slate-500 rounded`}><ChevronsLeft size={20} /></button>
-             <div className="flex items-center justify-center"><select value={viewMonth} onChange={(e) => setViewMonth(Number(e.target.value))} className={`bg-transparent ${THEME_COLOR} font-bold text-lg lg:text-xl cursor-pointer outline-none appearance-none text-center min-w-[60px]`}>{NEPAL_MONTHS_BS.map((m, i) => <option key={m} value={i}>{m}</option>)}</select></div>
-             <div className="flex items-center justify-center"><select value={viewYear} onChange={(e) => setViewYear(Number(e.target.value))} className={`bg-transparent ${THEME_COLOR} font-bold text-lg lg:text-xl cursor-pointer outline-none appearance-none text-center`}>{Array.from({length: 21}, (_, i) => 2070 + i).map(y => <option key={y} value={y}>{convertToNepaliDigit(y)}</option>)}</select></div>
-             <button onClick={handleNextMonth} className={`${THEME_COLOR} p-1 hover:border hover:border-slate-500 rounded`}><ChevronsRight size={20} /></button>
-           </div>
-           <div className={`self-end md:self-auto flex border border-gray-500 shadow-md bg-white shadow-gray-400/50 rounded-lg gap-1 items-center px-3 py-2 font-bold ${THEME_COLOR} min-w-[140px] justify-center`}><span className="text-sm lg:text-lg">{calendarData.engMonthString}</span></div>
+        <div className="self-start md:self-auto">
+          <button 
+            onClick={jumpToToday}
+            className={`bg-white border border-gray-400 shadow-md shadow-gray-400/50 px-3 py-2 rounded-md hover:text-orange-500 ${THEME_COLOR} font-bold text-sm lg:text-lg`}
+          >
+            आज
+          </button>
+        </div>
+
+        <div className="flex items-center gap-1 bg-gray-200 border border-gray-400 shadow-md shadow-gray-300/50 px-2 py-1 rounded-lg">
+          <button onClick={handlePrevMonth} className={`${THEME_COLOR} p-1 hover:border hover:border-slate-500 rounded`}>
+             <ChevronsLeft size={20} />
+          </button>
+          
+          <div className="flex items-center justify-center">
+            <select 
+              value={viewMonth} 
+              onChange={(e) => setViewMonth(Number(e.target.value))}
+              className={`bg-transparent ${THEME_COLOR} font-bold text-lg lg:text-xl cursor-pointer outline-none appearance-none text-center min-w-[60px]`}
+            >
+              {NEPAL_MONTHS_BS.map((m, i) => <option key={m} value={i}>{m}</option>)}
+            </select>
+          </div>
+
+          <div className="flex items-center justify-center">
+            <select 
+              value={viewYear} 
+              onChange={(e) => setViewYear(Number(e.target.value))}
+              className={`bg-transparent ${THEME_COLOR} font-bold text-lg lg:text-xl cursor-pointer outline-none appearance-none text-center`}
+            >
+               {Array.from({length: 21}, (_, i) => 2070 + i).map(y => <option key={y} value={y}>{convertToNepaliDigit(y)}</option>)}
+            </select>
+            <div className="flex flex-col -space-y-1 ml-1">
+              <ChevronUp size={10} className="text-gray-600"/>
+              <ChevronDown size={10} className="text-gray-600"/>
+            </div>
+          </div>
+
+          <button onClick={handleNextMonth} className={`${THEME_COLOR} p-1 hover:border hover:border-slate-500 rounded`}>
+             <ChevronsRight size={20} />
+          </button>
+        </div>
+
+        <div className={`self-end md:self-auto flex border border-gray-500 shadow-md bg-white shadow-gray-400/50 rounded-lg gap-1 items-center px-3 py-2 font-bold ${THEME_COLOR} min-w-[140px] justify-center`}>
+           <span className="text-sm lg:text-lg">{calendarData.engMonthString}</span>
+        </div>
       </div>
 
+
+      {/* GRID */}
       <div className={`border-l border-t ${BORDER_COLOR} w-full shadow-lg shadow-gray-400/50 bg-white`}>
         <div className="grid grid-cols-7 text-center">
           {WEEK_DAYS_COMPLEX.map((day, idx) => (
@@ -110,20 +164,21 @@ const CalendarWidget = () => {
                containerClass = "bg-green-700 text-white hover:bg-green-600";
                numColor = "text-white";
             }
-            if (!cell.isCurrentMonth && !isToday) {
-               containerClass = "bg-white text-gray-300"; 
-               numColor = "text-gray-200"; 
+            if (!cell.isCurrentMonth) {
+               if(!isToday) {
+                  containerClass = "bg-white text-gray-300"; 
+                  numColor = "text-gray-200"; 
+               }
             }
 
             return (
               <div 
                 key={`${cell.fullDate}-${index}`} 
-                // --- PASS WHOLE CELL TO CLICK ---
                 onClick={() => onDateClick(cell)}
                 className={`h-16 md:h-28 border-r border-b ${BORDER_COLOR} ${containerClass} relative cursor-pointer transition-colors flex flex-col justify-between p-1`}
               >
                 <div className="w-full text-center leading-none">
-                   <span className={`text-[8px] md:text-[10px] font-medium block line-clamp-1 ${isToday ? 'text-white' : (isSaturday || cell.isHoliday ? 'text-red-500' : 'text-gray-700')}`}>
+                   <span className={`text-[8px] md:text-[10px] font-medium block line-clamp-1 ${isToday ? 'text-white' : (isSaturday || cell.isHoliday ? 'text-red-500' : 'text-gray-600')}`}>
                      {cell.isCurrentMonth ? cell.eventName : ''}
                    </span>
                 </div>
@@ -140,6 +195,7 @@ const CalendarWidget = () => {
         </div>
       </div>
 
+      {/* MUHURT SECTION */}
       {muhurtList.length > 0 && (
         <div className="flex flex-wrap gap-4 md:gap-8 justify-center mt-6">
           {muhurtList.map((item, idx) => (
@@ -151,7 +207,6 @@ const CalendarWidget = () => {
         </div>
       )}
 
-      {/* --- PASS activeCell TO POPUP --- */}
       <DayPopup 
         data={activeCell} 
         isOpen={isPopupOpen} 

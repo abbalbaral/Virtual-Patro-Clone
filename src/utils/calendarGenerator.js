@@ -1,4 +1,3 @@
-// src/utils/calendarGenerator.js
 import NepaliDate from "nepali-date-converter";
 
 // 1. Helper: Convert English Numbers to Nepali (1 -> १)
@@ -14,15 +13,7 @@ export const convertToNepaliDigit = (number) => {
 const pad = (num) => String(num).padStart(2, "0");
 
 // 3. MAIN LOGIC: Generates the Grid
-// Now accepts 'eventData' which comes from your JSON file via Axios
-// src/utils/calendarGenerator.js
-
-// ... imports and helpers (convertToNepaliDigit, pad) remain same ...
-
 export const getMonthCalendar = (year, month, eventData = []) => {
-  // ... Setup code (firstDayOfMonth, engMonthString, daysInCurrentMonth, daysInPrevMonth) remains same ...
-  // (I am skipping the setup lines to keep this short, copy the previous setup if needed)
-
   const firstDayOfMonth = new NepaliDate(year, month, 1);
   const startDayIndex = firstDayOfMonth.getDay();
 
@@ -31,8 +22,12 @@ export const getMonthCalendar = (year, month, eventData = []) => {
   endJsDate.setDate(endJsDate.getDate() + 35);
   const engMonth1 = startJsDate.toLocaleString("default", { month: "short" });
   const engMonth2 = endJsDate.toLocaleString("default", { month: "short" });
-  const engYear = startJsDate.getFullYear();
-  const engMonthString = `${engMonth1}/${engMonth2} ${engYear}`;
+  const engYear1 = startJsDate.getFullYear();
+  const engYear2 = endJsDate.getFullYear();
+  const engMonthString =
+    engYear1 === engYear2
+      ? `${engMonth1}/${engMonth2} ${engYear1}`
+      : `${engMonth1} ${engYear1}/${engMonth2} ${engYear2}`;
 
   let daysInCurrentMonth = 0;
   for (let i = 29; i <= 32; i++) {
@@ -93,14 +88,11 @@ export const getMonthCalendar = (year, month, eventData = []) => {
       "शनिबार",
     ];
     const dayName = daysArray[dayOfWeek];
-
-    // --- FIX 1: Correct Data Mapping ---
     const foundEvent = eventData.find((e) => e.day === i);
 
     // Logic: Saturday (6) is always holiday. OR if JSON says is_holiday: true
     let isHoliday = dayOfWeek === 6;
     if (foundEvent && foundEvent.is_holiday === true) {
-      // <--- FIXED KEY NAME HERE
       isHoliday = true;
     }
 
@@ -113,12 +105,10 @@ export const getMonthCalendar = (year, month, eventData = []) => {
       isHoliday: isHoliday,
       eventName: foundEvent ? foundEvent.title : "",
       tithi: foundEvent && foundEvent.tithi ? foundEvent.tithi : "दशमी",
-      dayName: dayName, 
-      engFullDate: jsDate.toDateString() 
+      dayName: dayName,
+      engFullDate: jsDate.toDateString(),
     });
   }
-
-
 
   // C. NEXT MONTH
   const totalSlots = 35;
@@ -145,7 +135,6 @@ export const getMonthCalendar = (year, month, eventData = []) => {
   return { grid: finalGrid, engMonthString };
 };
 
-// ... constants export remains same ...
 export const NEPAL_MONTHS_BS = [
   "बैशाख",
   "जेठ",

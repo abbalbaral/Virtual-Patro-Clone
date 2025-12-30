@@ -5,6 +5,7 @@ import TodayWidget from '../components/TodayWidget';
 import UpcomingEvents from '../components/UpcomingEvents';
 // 1. IMPORT SERVICE
 import { getPanchanga } from '../services/api';
+import DayPopup from '../components/DayPopup';
 
 const Panchanga = () => {
   const [data, setData] = useState(null);
