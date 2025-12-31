@@ -29,7 +29,7 @@ const CalendarWidget = () => {
   const [allMuhurts, setAllMuhurts] = useState({}); 
   const [muhurtList, setMuhurtList] = useState([]);
   const [apiEvents, setApiEvents] = useState([]);
-
+  const [allEvents, setAllEvents] = useState({});
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [activeCell, setActiveCell] = useState(null);
 
@@ -41,7 +41,7 @@ const CalendarWidget = () => {
       
       // The service already extracts .data, so we just use the returned object
       if (data) {
-        setApiEvents(data.events || []); 
+        setAllEvents(data.events || {}); 
         
         if (data.muhurts) {
             setAllMuhurts(data.muhurts);
@@ -59,7 +59,9 @@ const CalendarWidget = () => {
     } else {
         setMuhurtList([]); 
     }
-  }, [viewMonth, allMuhurts]);
+    const currentMonthEvents = allEvents[currentKey] || []; 
+    setApiEvents(currentMonthEvents);
+  }, [viewMonth, allMuhurts, allEvents]);
 
   // 2. GENERATE GRID
   useEffect(() => {

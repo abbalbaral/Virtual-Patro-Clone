@@ -1,4 +1,3 @@
-// src/pages/Home.jsx
 import CalendarWidget from '../components/CalendarWidget';
 import TodayWidget from '../components/TodayWidget';
 import UpcomingEvents from '../components/UpcomingEvents';

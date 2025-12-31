@@ -1,4 +1,3 @@
-// src/components/Header.jsx
 import { Menu } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -14,9 +13,7 @@ const Header = () => {
   ];
 
   return (
-    // Exact Background Color from Virtual Patro HTML
     <nav className="bg-[#842362] shadow-md sticky top-0 z-50 font-mukta text-white">
-      {/* Container - Matches the max-width 1400px from the original site */}
       <div className="lg:mx-auto lg:max-w-[1400px] flex w-full py-1 justify-between items-center pb-1 px-3 md:px-2">
         {/* --- LEFT: LOGO --- */}
         <div className="my-2">

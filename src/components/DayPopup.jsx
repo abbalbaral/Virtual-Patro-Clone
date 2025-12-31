@@ -1,4 +1,3 @@
-// src/components/DayPopup.jsx
 import { X, Sunrise, Sunset } from 'lucide-react';
 import { NEPAL_MONTHS_BS, convertToNepaliDigit } from '../utils/calendarGenerator';
 const DayPopup = ({ data, isOpen, onClose }) => {

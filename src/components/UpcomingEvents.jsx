@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';  
 import { convertToNepaliDigit } from '../utils/calendarGenerator'; // Reuse our helper
 import { getCalendarEvents } from '../services/api';  
 const UpcomingEvents = () => {
   const [events, setEvents] = useState([]);
-
+  const { bsDate } = useSelector((state)=>state.calendar);
+  const [year,month,day]=bsDate.split('-').map(Number);
+  const currentMonthIndex = String(month-1);
   useEffect(() => {
     const loadData = async () => {
       // CALL SERVICE
       const data = await getCalendarEvents();
-      const rawEvents = data.events || [];
-      
+      const allEvents = data.events || [];
+      const monthEvents = allEvents[currentMonthIndex] || []
       // Transform logic remains here (view logic)
-      const formattedEvents = rawEvents.map(evt => ({
+      const formattedEvents = monthEvents.map(evt => ({
         day: convertToNepaliDigit(evt.day),
         title: evt.title,
         isHoliday: evt.is_holiday
@@ -19,7 +22,7 @@ const UpcomingEvents = () => {
       setEvents(formattedEvents);
     };
     loadData();
-  }, []);
+  }, [currentMonthIndex]);
 
   return (
     <div className="border border-slate-200 shadow-lg shadow-slate-500/50 p-3 flex flex-col items-center bg-white rounded-xl font-mukta h-full">

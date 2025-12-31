@@ -78,7 +78,7 @@ const ConverterCard = ({ title, rangeText, placeholder, type, minYear, maxYear }
       return;
     }
 
-    // 4. Day Check (Simple)
+    // 4. Day Check 
     if (d < 1 || d > 32) {
       setError("Result :\nenter valid date");
       return;
@@ -88,10 +88,10 @@ const ConverterCard = ({ title, rangeText, placeholder, type, minYear, maxYear }
       if (type === "AD") {
         // --- AD to BS ---
         
-        // FIX 1: Set time to Noon (12:00) to avoid timezone shifts
+        // time set to noon for avoiding timezone shifts
         const jsDate = new Date(y, m - 1, d, 12, 0, 0); 
 
-        // Validate: Did JS rollover the date? (e.g. Feb 30 -> Mar 2)
+        // Validation: feb30=>march2 ?
         if (jsDate.getFullYear() !== y || jsDate.getMonth() !== (m - 1) || jsDate.getDate() !== d) {
            throw new Error("Invalid Date");
         }
@@ -102,20 +102,15 @@ const ConverterCard = ({ title, rangeText, placeholder, type, minYear, maxYear }
       } else {
         // --- BS to AD ---
         
-        // Attempt create
         const bsObj = new NepaliDate(y, m - 1, d);
 
-        // Validate: Did library rollover? (e.g. 2081-02-32 -> 2081-03-01)
+        // Validation Roll Over
         if (bsObj.getYear() !== y || bsObj.getMonth() !== (m - 1) || bsObj.getDate() !== d) {
            throw new Error("Invalid Date");
         }
 
-        // FIX 2: The "Noon Shift" for BS->AD
-        // toJsDate() returns a date at 00:00:00 (Midnight).
-        // converting that to String often subtracts hours -> Previous Day.
         const jsDate = bsObj.toJsDate();
         
-        // Add 6 hours (in milliseconds) to push it safely into the day
         jsDate.setHours(jsDate.getHours() + 6);
 
         const adStr = jsDate.toISOString().split('T')[0];
@@ -131,7 +126,7 @@ const ConverterCard = ({ title, rangeText, placeholder, type, minYear, maxYear }
       <div className="w-full rounded-xl overflow-hidden shadow-lg border border-gray-200 bg-white">
         
         {/* Header */}
-        <div className="bg-[#b35c8e] text-white text-center py-6 px-4 h-32 flex flex-col justify-center items-center">
+        <div className="bg-[#842362] text-white text-center py-6 px-4 h-32 flex flex-col justify-center items-center">
           <h2 className="text-xl font-bold uppercase tracking-wide">{title}</h2>
           <p className="text-sm opacity-90 mt-1">{rangeText}</p>
         </div>
