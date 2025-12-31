@@ -9,25 +9,34 @@
         "is_holiday": true,
         "tithi": "द्वादशी"
       },
+      { "day": 2, "title": "", "is_holiday": false, "tithi": "त्रयोदशी" },
       {
         "day": 3,
         "title": "अन्तर्राष्ट्रिय आप्रावासी दिवस",
         "is_holiday": false,
         "tithi": "चतुर्दशी"
       },
+      { "day": 4, "title": "", "is_holiday": false, "tithi": "चतुर्दशी" },
       { "day": 5, "title": "तोल ल्होसार", "is_holiday": true, "tithi": "औँसी" },
+      { "day": 6, "title": "", "is_holiday": false, "tithi": "प्रतिपदा" },
+      { "day": 7, "title": "", "is_holiday": false, "tithi": "द्वितीया" },
+      { "day": 8, "title": "", "is_holiday": false, "tithi": "तृतीया" },
+      { "day": 9, "title": "", "is_holiday": false, "tithi": "चतुर्थी" },
       {
         "day": 10,
         "title": "क्रिसमस (इसाई धर्म मात्र)",
         "is_holiday": true,
         "tithi": "पञ्चमी"
       },
+      { "day": 11, "title": "", "is_holiday": false, "tithi": "षष्ठी" },
+      { "day": 12, "title": "", "is_holiday": false, "tithi": "सप्तमी" },
       {
         "day": 13,
         "title": "श्वेत–मत्स्येन्द्रनाथ स्नान",
         "is_holiday": false,
         "tithi": "अष्टमी"
       },
+      { "day": 14, "title": "", "is_holiday": false, "tithi": "नवमी" },
       {
         "day": 15,
         "title": "तमु ल्होसार",
@@ -40,12 +49,25 @@
         "is_holiday": false,
         "tithi": "द्वादशी"
       },
+      { "day": 17, "title": "", "is_holiday": false, "tithi": "त्रयोदशी" },
+      { "day": 18, "title": "", "is_holiday": false, "tithi": "चतुर्दशी" },
+      { "day": 19, "title": "", "is_holiday": false, "tithi": "पूर्णिमा" },
+      { "day": 20, "title": "", "is_holiday": false, "tithi": "प्रतिपदा" },
+      { "day": 21, "title": "", "is_holiday": false, "tithi": "द्वितीया" },
+      { "day": 22, "title": "", "is_holiday": false, "tithi": "तृतीया" },
+      { "day": 23, "title": "", "is_holiday": false, "tithi": "चतुर्थी" },
+      { "day": 24, "title": "", "is_holiday": false, "tithi": "पञ्चमी" },
+      { "day": 25, "title": "", "is_holiday": false, "tithi": "षष्ठी" },
+      { "day": 26, "title": "", "is_holiday": false, "tithi": "सप्तमी" },
       {
         "day": 27,
         "title": "पृथ्वी जयन्ती",
         "is_holiday": true,
         "tithi": "अष्टमी"
-      }
+      },
+      { "day": 28, "title": "", "is_holiday": false, "tithi": "नवमी" },
+      { "day": 29, "title": "", "is_holiday": false, "tithi": "दशमी" },
+      { "day": 30, "title": "", "is_holiday": false, "tithi": "एकादशी" }
     ],
     "9": [
       {
@@ -54,6 +76,10 @@
         "is_holiday": true,
         "tithi": "संक्रान्ति"
       },
+      { "day": 2, "title": "", "is_holiday": false, "tithi": "प्रतिपदा" },
+      { "day": 3, "title": "", "is_holiday": false, "tithi": "द्वितीया" },
+      { "day": 4, "title": "", "is_holiday": false, "tithi": "तृतीया" },
+      { "day": 5, "title": "", "is_holiday": false, "tithi": "चतुर्थी" },
       { "day": 12, "title": "सहिद दिवस", "is_holiday": true, "tithi": "पञ्चमी" }
     ]
   },
@@ -62,12 +88,12 @@
       { "title": "अन्नप्रासन्न (पास्नी) मुर्ह्त", "dates": "११" },
       {
         "title": "रुद्री जुर्ने दिनहरु",
-        "dates": "१, २, ६, ९, १०, ११, १६, १७, १८, १९, २२, २३"
+        "dates": "१, २, ९, १०, ११, १७, १८, १९, २२"
       },
-      { "title": "विवाह मुहुर्त", "dates": "६, ८, १३, १४, १८, १९, २०" },
+      { "title": "विवाह मुहुर्त", "dates": "६, ८, १३, १८, १९, २०" },
       {
         "title": "अग्नि जुर्ने दिनहरू",
-        "dates": "१, २, ५, ८, १०, १४, १६, १८, १९, २१, २३"
+        "dates": "१, २, ५, ८, १०, १८, १९, २१"
       },
       { "title": "गृहारम्भ (जग राख्ने)", "dates": "११, १९, २०" },
       { "title": "दोकान खोल्ने", "dates": "१४, १९, २०" },
